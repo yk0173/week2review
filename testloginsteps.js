@@ -1,21 +1,24 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import { expect, $ } from '@wdio/globals'
+import { expect, $ } from '@wdio/globals';
 
-import Logins from 'C:/Project/features/pageobjects/testlogin.js';
+import loginPage from '../pageobjects/login.page.js';
 
-
-Given(/^I am in the login page$/, async() => {
-	browser.url("https://practicetestautomation.com/practice-test-login/");
+Given(/^I am in the login page$/, async () => {
+    await browser.url(loginPage.findURL);
 });
 
-When(/^I enter my username and password$/, async() => {
-	await Logins.enterCred();
+When(/^I enter my username and password$/, async () => {
+    await browser.pause(2000);
+    await loginPage.enterCred("student", "Password123");
 });
 
-When(/^I click on Submit button$/, async() => {
-	await Logins.pressSub();
+When(/^I click on Submit button$/, async () => {
+    await browser.pause(6000);
+    await loginPage.pressSub();
 });
 
-Then(/^new page URL contains Congratulations$/, async() => {
-	await expect(browser).toHaveUrl('https://practicetestautomation.com/logged-in-successfully/');
-});
+Then(/^I am logged in successfully$/, async () => {
+    const text=$('//*[text()="Logged In Successfully"]');
+    await expect(text).toHaveText("Logged In Successfully");
+    }, 
+    );
