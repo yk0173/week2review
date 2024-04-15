@@ -1,24 +1,29 @@
 class Login {
+    get findURL() {
+        return 'https://practicetestautomation.com/practice-test-login/'
+    }
+    
     get username() {
-      return $("#username");
+        return $('#username');
     }
   
     get password() {
-      return $("#password");
+        return $('#password');
     }
   
+    enterCred(username, password) {
+        this.username.setValue(username);
+        this.password.setValue(password);
+    }
+    
     get loginBtn() {
-      return $("#submit");
+        return $('//*[@id="submit"]');
     }
-    enterCred() {
-      this.username.setValue("student");
-      this.password.setValue("Password123");
-    }
-  
+
     pressSub() {
-      this.loginBtn.click();
+        this.loginBtn.click();
     }
-  }
-  
-  module.exports = new Login();
-  
+}
+
+
+export default new Login();
